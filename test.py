@@ -45,6 +45,13 @@ def test_linq():
         .GroupBy(lambda x: x)
     print(x)
 
+    File.ReadAllLines("test.txt") \
+        .Select(lambda x: int(x)) \
+        .Where(lambda x: x < 60) \
+        .OrderBy() \
+        .ForEach(print)
+
+
 
 def union_test():
     x = [20, 10, 30, 50]
@@ -72,10 +79,13 @@ def append_all_lines_to_file_test():
     File.AppendAllLines(file_name, array)
 
 
+
+
 if __name__ == '__main__':
 
-    File.ReadAllLines("test.txt") \
-        .Select(lambda x: int(x)) \
-        .Where(lambda x: x < 60) \
-        .OrderBy() \
-        .ForEach(print)
+    # List(['dfvdfv','dfvdfv']).Select(lambda x:x+"  666").ForEach(print)
+
+    List(['dfvdfv','dfv']).Where(lambda x:len(x)==3).ForEach(print)
+
+
+    
