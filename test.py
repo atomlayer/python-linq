@@ -1,4 +1,5 @@
 from linq_like_csharp import List
+from file_like_csharp import File
 
 
 def join_test():
@@ -55,12 +56,26 @@ def union_test():
 
 
 def zip_test():
-    x=["A", "B", "C", "D", "E"]
+    x = ["A", "B", "C", "D", "E"]
     y = [1, 2, 3]
 
-    print(List(x).Zip(y, lambda n, o: n+str(o)))
+    print(List(x).Zip(y, lambda n, o: n + str(o)))
+
 
 # ['A1', 'B2', 'C3']
 
+
+def append_all_lines_to_file_test():
+    file_name = 'test.txt'
+    array = ["10", "44532"]
+
+    File.AppendAllLines(file_name, array)
+
+
 if __name__ == '__main__':
-    zip_test()
+
+    File.ReadAllLines("test.txt") \
+        .Select(lambda x: int(x)) \
+        .Where(lambda x: x < 60) \
+        .OrderBy() \
+        .ForEach(print)

@@ -4,6 +4,7 @@ from itertools import groupby
 
 class List(list):
 
+
     # определяет проекцию выбранных значений
     def Select(self, fun):
         return List([fun(x) for x in self])
