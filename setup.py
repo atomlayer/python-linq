@@ -16,7 +16,7 @@ with open('README.md', encoding='utf-8') as f:
     long_description = f.read()
 
 setup(
-    name='python-linq',
+    name='python_linq',
     version=version,
 
     author='Atomlayer',
@@ -33,7 +33,7 @@ setup(
 
     license='GNU AFFERO GENERAL PUBLIC LICENSE Version 3, 19 November 2007, see LICENSE file',
 
-    packages=['python-linq'],
+    packages=['python_linq'],
     install_requires=[],
 
     classifiers=[
