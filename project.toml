@@ -1,0 +1,16 @@
+[project]
+name = "python-linq"
+version = "1.0"
+description = ''
+authors = ["Atomlayer"]
+readme = "README.md"
+homepage = "https://github.com/atomlayer/python-linq"
+repository = "https://github.com/atomlayer/python-linq"
+keywords = ["python", "linq", "python3", "C-Sharp-LINQ"]
+requires-python = ">=3.7"
+license = {file = "LICENSE"}
+
+
+[build-system]
+requires = ["setuptools>=43.0.0", "wheel"]
+build-backend = "setuptools.build_meta"

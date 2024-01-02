@@ -5,13 +5,17 @@ from itertools import groupby
 
 class List(list):
 
-
-    # определяет проекцию выбранных значений
     def Select(self, fun):
+        """
+        Defines the projection of the selected values
+        """
         return List([fun(x) for x in self])
 
-    # создает выходную последовательность с проекцией "один ко многим" из входной последовательности
     def SelectMany(self, fun_selector=None):
+        """
+        creates an output sequence with a one-to-many projection from the input sequence
+        """
+
         output = List()
         for n in self:
             for x in n:
@@ -21,38 +25,43 @@ class List(list):
                     output.append(fun_selector(x))
         return output
 
-    # определяет фильтр выборки
     def Where(self, fun):
+        """Defines a sampling filter"""
+
         return List(x for x in self if fun(x))
 
-    # группирует элементы по ключу
     def GroupBy(self, fun_key_selector):
+        """Groups elements by key"""
+
         output = []
         for key, group in groupby(self, fun_key_selector):
             group_ = {'key': key, 'values': List([x for x in group])}
             output.append(group_)
         return List(output)
 
-    # возвращает последовательность, содержащую все элементы первой последовательности,
-    # которых нет во второй последовательности
     def Except(self, input_list):
+        """returns a sequence containing all the elements of the first sequence that are not in the second sequence"""
+
         return List([x for x in self if x not in input_list])
 
-    # выбирает единственный элемент коллекции, если коллекция содердит больше или меньше одного элемента,
-    # то генерируется исключение
     def Single(self):
+        """selects a single element of the collection;
+        if the collection contains more or less than one element, an exception is thrown"""
+
         if len(self) > 1:
-            raise Exception("Последовательность содержит более одного элемента")
+            raise Exception("Sequence contains more than one element")
         return self[0]
 
-    # выбирает первый элемент коллекции или возвращает значение по умолчанию
     def SingleOrDefault(self, default_value):
+        """Selects the first element of the collection or returns the default value"""
+
         if len(self) != 1:
             return default_value
         return self[0]
 
-    # как в sql - inner join
     def Join(self, inner_list, fun_outher_key_selector, fun_inner_key_selector, result_selector):
+        """как в sql - inner join"""
+
         output = List()
         for n in self:
             for o in inner_list:
@@ -72,47 +81,57 @@ class List(list):
     def Distinct(self):
         return List(list(set(self)))
 
-    # объединяет две однородные коллекции
     def Concat(self, input_list):
+        """Combines two homogeneous collections"""
+
         return List(self + input_list)
 
-    # возвращает пересечение двух коллекций, то есть те элементы, которые встречаются в обоих коллекциях
     def Intersect(self, input_list):
+        """Returns the intersection of two collections, that is, those elements that appear in both collections"""
+
         return List(set(self).intersection((set(input_list))))
 
-    # подсчитывает количество элементов коллекции, которые удовлетворяют определенному условию
     def Count(self, fun=None):
+        """Counts the number of elements of a collection that satisfy a certain condition"""
+
         if fun is None:
             return len(self)
         else:
             return len([x for x in self if fun(x)])
 
-    # подсчитывает сумму числовых значений в коллекции
     def Sum(self):
+        """counts the sum of numeric values in a collection"""
+
         return sum(self)
 
-    # подсчитывает cреднее значение числовых значений в коллекции
     def Average(self):
+        """Calculates the average of the numeric values in a collection"""
+
         return sum(self) / float(len(self))
 
-    # находит минимальное значение
     def Min(self):
+        """Finds the minimum value"""
+
         return min(self)
 
-    # находит максимальное значение
     def Max(self):
+        """Finds the maximum value"""
+
         return max(self)
 
-    # выбирает определенное количество элементов
     def Take(self, count_of_elements):
+        """Selects a certain number of elements"""
+
         return List(self[:count_of_elements])
 
-    # пропускает определенное количество элементов
     def Skip(self, count_of_elements):
+        """Skips a certain number of elements"""
+
         return List(self[count_of_elements:])
 
-    # возвращает цепочку элементов последовательности, до тех пор, пока условие истинно
     def TakeWhile(self, fun):
+        """Returns a chain of sequence elements as long as the condition is true"""
+
         output = []
         for n in self:
             if fun(n) == True:
@@ -121,40 +140,47 @@ class List(list):
                 break
         return List(output)
 
-    # пропускает элементы в последовательности, пока они удовлетворяют заданному условию,
-    # и затем возвращает оставшиеся элементы
     def SkipWhile(self, fun):
+        """Skips elements in a sequence as long as they satisfy a given condition,
+         and then returns the remaining elements"""
+
         for i, n in enumerate(self):
             if fun(n) == False:
                 return List(self[i:])
 
-    # выбирает первый элемент коллекции
     def First(self):
+        """Selects the first element of the collection"""
+
         return self[0]
 
-    # выбирает первый элемент коллекции или возвращает значение по умолчанию
     def FirstOrDefault(self, default_value):
+        """Selects the first element of the collection or returns the default value"""
+
         return self[0] if len(self) > 0 else default_value
 
-    # выбирает элемент последовательности по определенному индексу
     def ElementAt(self, element_index):
+        """Selects a sequence element at a specific index"""
+
         return self[element_index]
 
-    # выбирает элемент коллекции по определенному индексу или возвращает значение по умолчанию,
-    # если индекс вне допустимого диапазона
     def ElementAtOrDefault(self, element_index, default_value):
+        """Selects a collection element at a specific index or returns a default value if the index is out of range"""
+
         return self[element_index] if element_index < len(self) else default_value
 
-    # выбирает последний элемент коллекции
     def Last(self):
+        """Selects the last element of the collection"""
+
         return self[-1]
 
-    # выбирает последний элемент коллекции или возвращает значение по умолчанию
     def LastOrDefault(self, default_value):
+        """Selects the last element of the collection or returns the default value"""
+
         return self[-1] if len(self) > 0 else default_value
 
-    # упорядочивает элементы по возрастанию
     def OrderBy(self, fun=None):
+        """Arranges elements in ascending order"""
+
         if fun is None:
             self.sort()
         else:
@@ -168,13 +194,15 @@ class List(list):
             self.sort(reverse=True, key=fun)
         return self
 
-    # располагает элементы в обратном порядке
     def Reverse(self):
+        """Arranges elements in reverse order"""
+
         self.reverse()
         return self
 
-    # Zip: объединяет две коллекции в соответствии с определенным условием
     def Zip(self, second_list, fun_result_selector):
+        """Combines two collections according to a certain condition"""
+
         count = len(self) if len(self) < len(second_list) else len(second_list)
         output = List()
         for i in range(count):
@@ -199,22 +227,27 @@ class List(list):
         else:
             raise ValueError()
 
-    # возвращает индекс первого вхождения элемента в списке
     def IndexOf(self, element):
+        """Returns the index of the first occurrence of an element in a list"""
+
         self.index(element)
 
-    # вставляет элемент element в списке на позицию index
     def Insert(self, index, element):
+        """Inserts the element element in the list at position index"""
+
         self.insert(index, element)
 
-    # удаляет элемент item из списка
     def Remove(self, element):
+        """Removes the item element from the list"""
+
         self.remove(element)
 
-    # удаление элемента по указанному индексу index
     def RemoveAt(self, index):
+        """Removing an element at the specified index index"""
+
         del self[index]
 
-    # возвращает объединение множеств из двух исходных последовательностей
     def Union(self, second_list):
+        """Returns the union of sets from two source sequences"""
+
         return List(list(set(self + second_list)))
