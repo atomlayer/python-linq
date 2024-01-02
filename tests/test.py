@@ -1,6 +1,5 @@
-from linq_like_csharp import List
-from file_like_csharp import File
-
+from python_linq.linq_like_csharp import List
+from python_linq.file_like_csharp import File
 
 def join_test():
     x = [
