@@ -82,7 +82,6 @@ def append_all_lines_to_file_test():
 
 if __name__ == '__main__':
 
-    # List(['dfvdfv','dfvdfv']).Select(lambda x:x+"  666").ForEach(print)
 
     List(['dfvdfv','dfv']).Where(lambda x:len(x)==3).ForEach(print)
 
