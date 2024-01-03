@@ -1,5 +1,5 @@
 # python-linq
-python-linq is a library that implements the basic linq C# methods in python
+python-linq is a library that implements the basic linq C# methods in python.
 
 
 ## Installation
@@ -28,4 +28,51 @@ Result: [3, 150, 180, 180]
 from python_linq.file_like_csharp import File
 file_text = File.ReadAllText("example.txt")
 ```
+
+
+## Available methods
+
+| Linq methods       | File methods   |
+| ------------------ | -------------- |
+| Select             | ReadAllLines   |
+| SelectMany         | ReadAllText    |
+| Where              | ReadAllBytes   |
+| GroupBy            | AppendAllLines |
+| Except             | AppendAllText  |
+| Single             | WriteAllLines  |
+| SingleOrDefault    | WriteAllText   |
+| Join               | WriteAllBytes  |
+| Any                |                |
+| All                |                |
+| Contains           |                |
+| Distinct           |                |
+| Concat             |                |
+| Intersect          |                |
+| Count              |                |
+| Sum                |                |
+| Average            |                |
+| Min                |                |
+| Max                |                |
+| Take               |                |
+| Skip               |                |
+| TakeWhile          |                |
+| SkipWhile          |                |
+| First              |                |
+| FirstOrDefault     |                |
+| ElementAt          |                |
+| ElementAtOrDefault |                |
+| Last               |                |
+| LastOrDefault      |                |
+| OrderBy            |                |
+| OrderByDescending  |                |
+| Reverse            |                |
+| Zip                |                |
+| ForEach            |                |
+| Add                |                |
+| AddRange           |                |
+| IndexOf            |                |
+| Insert             |                |
+| Remove             |                |
+| RemoveAt           |                |
+| Union                   |                |
 
