@@ -280,20 +280,31 @@ class List(list):
 
         return min(self)
 
-    def Max(self):
+    def Max(self, fun=None):
         """
-        Finds the maximum value in the collection.
+        The function Max takes an optional argument fun and returns the maximum value from a given input.
+        If the fun argument is not provided, it returns the maximum value from the input.
+        If the fun argument is provided, it returns the maximum value based on the result of the function fun.
 
-        Returns:
-        - The maximum value in the collection.
+        Args:
+        - fun: The condition function used to determine which elements to count.
 
         Example:
-        # >>> lst = List([1, 2, 3, 4, 5])
-        # >>> lst.Max()
-        5
-        """
+        # Create a list of numbers
+        numbers = [5, 8, 3, 11, 6]
 
-        return max(self)
+        # Using the Max function without the fun argument
+        max_value = Max(numbers)
+        print(max_value)  # Output: 11
+
+        # Using the Max function with a custom function
+        max_value_custom = Max(numbers, fun=lambda x: x % 2)
+        print(max_value_custom)  # Output: 8
+        """
+        if fun is None:
+            return max(self)
+        else:
+            return max(self, key=lambda pair: pair[0])
 
     def Take(self, count_of_elements):
         """
