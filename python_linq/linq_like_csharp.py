@@ -304,7 +304,7 @@ class List(list):
         if fun is None:
             return max(self)
         else:
-            return max(self, key=lambda pair: pair[0])
+            return max(self, key=fun)
 
     def Take(self, count_of_elements):
         """
